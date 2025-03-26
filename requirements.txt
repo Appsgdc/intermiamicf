@@ -1,4 +1,3 @@
-fdk>=0.1.91
-paramiko
 oci
-os
+requests
+json
