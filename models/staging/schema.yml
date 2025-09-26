@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Raw employee master from source; landed as-is for downstream staging."
+    columns:
+      - name: customer_id
+        description: "Employee business key (natural identifier)."
+        tests: [unique, not_null]
+
+  - name: dim_product
+    description: "Raw department master from source; landed as-is for downstream staging."
+    columns:
+      - name: product_id
+        description: "Department business key (natural identifier)."
+        tests: [unique, not_null]
+
+  - name: dim_date
+    description: "PVO: Organization Unit extract (raw landing)."
+    columns:
+      - name: date_id
+        description: "Stable integration key for the PVO row."
+        tests: [unique, not_null]
+
+  - name: fact_sales
+    description: "PVO: HR Locations extract (raw landing)."
+    columns:
+      - name: sales_id,product_id,date_id,customer_id
+        description: "Stable integration key for the PVO row."
+        tests: [unique, not_null]
+
+  

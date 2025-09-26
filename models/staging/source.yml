@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: Redshift-stage
+    database: "{{ env_var('DBT_SOURCE') }}"  # e.g. useful-lattice-472005-i4
+    schema: public                                     # your dataset
+    loader: Cloud Data Fusion
+    tables:
+      - name: dim_customer
+      - name: dim_date
+      - name: dim_product
+      - name: fact_sales
+

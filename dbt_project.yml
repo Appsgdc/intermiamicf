@@ -1,0 +1,32 @@
+name: apps_redshift          
+version: '1.0'
+config-version: 2
+profile: 'my_project'
+
+models:
+  apps_redshift:
+    +project: "{{ env_var('DBT_SOURCE') }}"
+
+    # Correct the dataset for stage models
+    staging:
+      +dataset: staging
+      materialized: view
+
+      Redshift-stage:
+        materialized: table
+
+    raw:
+      +dataset: staging
+      materialized: table
+
+    core:
+      +dataset: core
+      materialized: table
+
+vars:
+  bq_dw_prod: 'phonic-spot-335716'
+  bq_dw_dev: 'pioneering-flag-293415'
+  bq_dw_raw: 'endless-station-293414'
+  default_timezone: 'America/New_York'
+  event_date: '{{ modules.datetime.datetime.now(tz=modules.pytz.timezone( var("default_timezone") )).date() - modules.datetime.timedelta(days=1) }}'
+  event_date_sql: 'format_date("%Y%m%d", date_sub(current_date("America/New_York"), interval 1 day))'

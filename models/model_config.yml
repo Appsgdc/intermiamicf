@@ -1,0 +1,15 @@
+version: 1
+
+models:
+  - name: sales
+    materialized: incremental
+    unique_key: sales_id
+    sql: |
+      select *
+      from {{ source('Redshift-stage', 'fact_sales') }}
+
+  - name: customers
+    materialized: table
+    sql: |
+      select *
+      from {{ source('Redshift-stage', 'dim_customer') }}

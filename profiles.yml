@@ -1,0 +1,12 @@
+my_project:
+  target: dev
+  outputs:
+    dev:
+      type: redshift
+      host: <your-redshift-cluster>.amazonaws.com
+      user: admin
+      password: Sunlight1234$
+      port: 5439
+      dbname: dev
+      schema: staging   # default schema for generated models
+      threads: 4
